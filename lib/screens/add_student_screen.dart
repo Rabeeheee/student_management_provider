@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:student_management_provider/provider/add_student_provider.dart';
 
 class AddStudentScreen extends StatelessWidget {
+  const AddStudentScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(

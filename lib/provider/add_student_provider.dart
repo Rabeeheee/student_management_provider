@@ -55,6 +55,7 @@ class AddStudentProvider with ChangeNotifier {
 
     await DatabaseHelper().insertStudent(student);
 
+    // ignore: use_build_context_synchronously
     Navigator.of(context).pop();
   }
 }

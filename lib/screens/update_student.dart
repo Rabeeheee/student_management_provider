@@ -8,36 +8,36 @@ import 'package:student_management_provider/provider/student_update_provider.dar
 class UpdateStudentScreen extends StatelessWidget {
   final StudentModel student;
 
-  UpdateStudentScreen({required this.student});
+  const UpdateStudentScreen({super.key, required this.student});
 
   @override
   Widget build(BuildContext context) {
     final studentProvider = Provider.of<StudentUpdateProvider>(context);
     studentProvider.initializeStudent(student);
 
-    final _formKey = GlobalKey<FormState>();
-    final _nameController = TextEditingController(text: student.name);
-    final _gradeController = TextEditingController(text: student.grade);
-    final _ageController = TextEditingController(text: student.age);
-    final _guardianNameController = TextEditingController(text: student.guardianName);
-    final _guardianPhoneController = TextEditingController(text: student.guardianPhone);
+    final formKey = GlobalKey<FormState>();
+    final nameController = TextEditingController(text: student.name);
+    final gradeController = TextEditingController(text: student.grade);
+    final ageController = TextEditingController(text: student.age);
+    final guardianNameController = TextEditingController(text: student.guardianName);
+    final guardianPhoneController = TextEditingController(text: student.guardianPhone);
 
-    final ImagePicker _imagePicker = ImagePicker();
+    final ImagePicker imagePicker = ImagePicker();
 
-    Future<void> _pickImageFromGallery() async {
-      final pickedFile = await _imagePicker.pickImage(source: ImageSource.gallery);
+    Future<void> pickImageFromGallery() async {
+      final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
       if (pickedFile != null) {
         studentProvider.updateProfileImage(File(pickedFile.path));
       }
     }
 
-    void _updateStudent() async {
-      if (_formKey.currentState!.validate()) {
-        final name = _nameController.text.trim();
-        final grade = _gradeController.text.trim();
-        final age = _ageController.text.trim();
-        final guardianName = _guardianNameController.text.trim();
-        final guardianPhone = _guardianPhoneController.text.trim();
+    void updateStudent() async {
+      if (formKey.currentState!.validate()) {
+        final name = nameController.text.trim();
+        final grade = gradeController.text.trim();
+        final age = ageController.text.trim();
+        final guardianName = guardianNameController.text.trim();
+        final guardianPhone = guardianPhoneController.text.trim();
 
         await studentProvider.updateStudent(
           name,
@@ -47,6 +47,7 @@ class UpdateStudentScreen extends StatelessWidget {
           guardianPhone,
         );
 
+        // ignore: use_build_context_synchronously
         Navigator.pop(context);
       }
     }
@@ -59,11 +60,11 @@ class UpdateStudentScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Form(
-            key: _formKey,
+            key: formKey,
             child: Column(
               children: [
                 GestureDetector(
-                  onTap: _pickImageFromGallery,
+                  onTap: pickImageFromGallery,
                   child: CircleAvatar(
                     radius: 50,
                     backgroundImage: studentProvider.profileImage != null
@@ -76,7 +77,7 @@ class UpdateStudentScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 TextFormField(
-                  controller: _nameController,
+                  controller: nameController,
                   decoration: InputDecoration(
                     labelText: 'Full Name',
                     border: OutlineInputBorder(),
@@ -90,7 +91,7 @@ class UpdateStudentScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 TextFormField(
-                  controller: _gradeController,
+                  controller: gradeController,
                   decoration: InputDecoration(
                     labelText: 'Grade',
                     border: OutlineInputBorder(),
@@ -104,7 +105,7 @@ class UpdateStudentScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 TextFormField(
-                  controller: _ageController,
+                  controller: ageController,
                   decoration: InputDecoration(
                     labelText: 'Age',
                     border: OutlineInputBorder(),
@@ -119,7 +120,7 @@ class UpdateStudentScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 TextFormField(
-                  controller: _guardianNameController,
+                  controller: guardianNameController,
                   decoration: InputDecoration(
                     labelText: 'Guardian Name',
                     border: OutlineInputBorder(),
@@ -133,7 +134,7 @@ class UpdateStudentScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 TextFormField(
-                  controller: _guardianPhoneController,
+                  controller: guardianPhoneController,
                   decoration: InputDecoration(
                     labelText: 'Guardian Phone',
                     border: OutlineInputBorder(),
@@ -148,7 +149,7 @@ class UpdateStudentScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: _updateStudent,
+                  onPressed: updateStudent,
                   child: Text('Update Student'),
                 ),
               ],

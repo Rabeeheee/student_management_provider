@@ -8,7 +8,7 @@ import 'package:student_management_provider/screens/update_student.dart';
 class StudentDetailsScreen extends StatelessWidget {
   final StudentModel student;
 
-  StudentDetailsScreen({required this.student});
+  const StudentDetailsScreen({super.key, required this.student});
 
   @override
   Widget build(BuildContext context) {

@@ -8,6 +8,8 @@ import 'package:student_management_provider/screens/student_details_screen.dart'
 import 'package:student_management_provider/screens/student_search_delegate.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +27,7 @@ class HomePage extends StatelessWidget {
             },
           ),
           ToggleButtons(
+            // ignore: sort_child_properties_last
             children: [
               Icon(Icons.list),
               Icon(Icons.grid_view),
@@ -57,6 +60,7 @@ class HomePage extends StatelessWidget {
           ) as StudentModel?;
 
           if (newStudent != null) {
+            // ignore: use_build_context_synchronously
             Provider.of<HomeProvider>(context, listen: false)
                 .addStudent(newStudent); 
           }
